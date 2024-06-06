@@ -1,4 +1,4 @@
-# Utilizar una imagen base de Debian
+# Utilizar una imagen base de Debian (sistema escogido para realizar la evaluacion)
 FROM debian:latest
 
 # Actualizar el repositorio e instalar dependencias
@@ -12,7 +12,7 @@ RUN apt-get update && apt-get install -y \
     libgd-dev \
     unzip
 
-# Descargar Nagios Core
+# Descargar Nagios Core y dependencias
 RUN wget https://assets.nagios.com/downloads/nagioscore/releases/nagios-4.4.6.tar.gz \
     && tar xzf nagios-4.4.6.tar.gz \
     && cd nagios-4.4.6 \
