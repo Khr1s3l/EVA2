@@ -31,7 +31,7 @@ RUN wget https://assets.nagios.com/downloads/nagioscore/releases/nagios-4.4.6.ta
 # Configurar la autenticación de Nagios
 RUN htpasswd -b -c /usr/local/nagios/etc/htpasswd.users nagiosadmin nagiosadmin
 
-# Limpiar archivos de instalación
+# Limpiar archivos de instalación para limpiar el disco 
 RUN rm -rf /nagios-4.4.6 nagios-4.4.6.tar.gz
 
 # Configurar Nagios para que se inicie automáticamente
@@ -44,4 +44,4 @@ EXPOSE 80
 # Comando para iniciar Apache y Nagios
 CMD ["/start.sh"]
 
-# PRUEBA UPDATE
+# Y listo !!
