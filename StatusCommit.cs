@@ -16,12 +16,12 @@ public string FormulaDeResistencia (int dolor, int resilencia)
         	}
         	else if (dolor < resilencia)
         	{
-			estadoAnimico = "hay fe"
-			return estadoAnimico 
+			estadoAnimico = "hay fe";
+			return estadoAnimico;
                 }
 	}
 	catch(error ex)
 	{
-		return "muerte"
+		return "muerte";
 	}
 }
