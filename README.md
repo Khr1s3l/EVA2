@@ -1,6 +1,6 @@
 # Nagios Docker Image
 
-Este repositorio contiene el Dockerfile y scripts necesarios para construir una imagen Docker que ejecuta Nagios Core desde una maquina DEBIAN 12 desde google cloud.
+Este repositorio contiene el Dockerfile y scripts necesarios para construir una imagen Docker que ejecuta Nagios Core.
 
 ## Instalación de Git y Docker
 
@@ -9,49 +9,71 @@ Antes de comenzar, asegúrate de tener Git y Docker instalados en tu máquina. A
 ### Instalación de Git
 
 1. Actualiza el índice de paquetes:
+    ```bash
     sudo apt update
+    ```
 
 2. Instala Git:
+    ```bash
     sudo apt install git -y
+    ```
 
 ### Instalación de Docker
 
 1. Actualiza el índice de paquetes:
+    ```bash
     sudo apt update
+    ```
 
 2. Instala los paquetes necesarios para usar el repositorio apt a través de HTTPS:
+    ```bash
     sudo apt install ca-certificates curl gnupg -y
+    ```
 
 3. Añade la clave GPG oficial de Docker:
+    ```bash
     sudo mkdir -m 0755 -p /etc/apt/keyrings
     curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+    ```
 
 4. Usa el siguiente comando para configurar el repositorio:
+    ```bash
     echo \
     "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian \
     $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+    ```
 
 5. Actualiza el índice de paquetes nuevamente:
+    ```bash
     sudo apt update
+    ```
 
 6. Instala Docker:
+    ```bash
     sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
+    ```
 
 ## Construcción de la Imagen
 
 1. Clona el repositorio:
-    git clone https://github.com/Khr1s3l/EVA2
+    ```bash
+    git clone https://github.com/Khr1s3l/EVA2.git
     cd EVA2
+    ```
 
 2. Construye la imagen Docker:
+    ```bash
     sudo docker build -t nagios-core .
+    ```
 
 ## Ejecución del Contenedor
 
 1. Ejecuta el contenedor:
+    ```bash
     sudo docker run -d -p 80:80 nagios-core
+    ```
 
-2. Abre un navegador web y navega a `http://IPPUBLICA/nagios`.
+2. Abre un navegador web y navega a `http://IpPublicaMaquina/nagios`.
 
 3. Inicia sesión con las siguientes credenciales:
     - **Usuario**: nagiosadmin
@@ -70,4 +92,3 @@ Las contribuciones son bienvenidas. Por favor, crea un fork del repositorio y ab
 ## Licencia
 
 Este proyecto está licenciado bajo la Licencia MIT.
-
