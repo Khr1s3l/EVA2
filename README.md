@@ -1,9 +1,73 @@
-¿Qué es Lorem Ipsum?
-Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años, sino que tambien ingresó como texto de relleno en documentos electrónicos, quedando esencialmente igual al original. Fue popularizado en los 60s con la creación de las hojas "Letraset", las cuales contenian pasajes de Lorem Ipsum, y más recientemente con software de autoedición, como por ejemplo Aldus PageMaker, el cual incluye versiones de Lorem Ipsum.
+# Nagios Docker Image
 
-¿Por qué lo usamos?
-Es un hecho establecido hace demasiado tiempo que un lector se distraerá con el contenido del texto de un sitio mientras que mira su diseño. El punto de usar Lorem Ipsum es que tiene una distribución más o menos normal de las letras, al contrario de usar textos como por ejemplo "Contenido aquí, contenido aquí". Estos textos hacen parecerlo un español que se puede leer. Muchos paquetes de autoedición y editores de páginas web usan el Lorem Ipsum como su texto por defecto, y al hacer una búsqueda de "Lorem Ipsum" va a dar por resultado muchos sitios web que usan este texto si se encuentran en estado de desarrollo. Muchas versiones han evolucionado a través de los años, algunas veces por accidente, otras veces a propósito (por ejemplo insertándole humor y cosas por el estilo).
+Este repositorio contiene el Dockerfile y scripts necesarios para construir una imagen Docker que ejecuta Nagios Core desde una maquina DEBIAN 12 desde google cloud.
 
+## Instalación de Git y Docker
 
-¿De dónde viene?
-Al contrario del pensamiento popular, el texto de Lorem Ipsum no es simplemente texto aleatorio. Tiene sus raices en una pieza cl´sica de la literatura del Latin, que data del año 45 antes de Cristo, haciendo que este adquiera mas de 2000 años de antiguedad. Richard McClintock, un profesor de Latin de la Universidad de Hampden-Sydney en Virginia, encontró una de las palabras más oscuras de la lengua del latín, "consecteur", en un pasaje de Lorem Ipsum, y al seguir leyendo distintos textos del latín, descubrió la fuente indudable. Lorem Ipsum viene de las secciones 1.10.32 y 1.10.33 de "de Finnibus Bonorum et Malorum" (Los Extremos del Bien y El Mal) por Cicero, escrito en el año 45 antes de Cristo. Este libro es un tratado de teoría de éticas, muy popular durante el Renacimiento. La primera linea del Lorem Ipsum, "Lorem ipsum dolor sit amet..", viene de una linea en la sección 1.10.32
+Antes de comenzar, asegúrate de tener Git y Docker instalados en tu máquina. Aquí te mostramos cómo hacerlo en Debian GNU/Linux 12 (Bookworm).
+
+### Instalación de Git
+
+1. Actualiza el índice de paquetes:
+    sudo apt update
+
+2. Instala Git:
+    sudo apt install git -y
+
+### Instalación de Docker
+
+1. Actualiza el índice de paquetes:
+    sudo apt update
+
+2. Instala los paquetes necesarios para usar el repositorio apt a través de HTTPS:
+    sudo apt install ca-certificates curl gnupg -y
+
+3. Añade la clave GPG oficial de Docker:
+    sudo mkdir -m 0755 -p /etc/apt/keyrings
+    curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+
+4. Usa el siguiente comando para configurar el repositorio:
+    echo \
+    "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian \
+    $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+5. Actualiza el índice de paquetes nuevamente:
+    sudo apt update
+
+6. Instala Docker:
+    sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
+
+## Construcción de la Imagen
+
+1. Clona el repositorio:
+    git clone https://github.com/Khr1s3l/EVA2
+    cd EVA2
+
+2. Construye la imagen Docker:
+    sudo docker build -t nagios-core .
+
+## Ejecución del Contenedor
+
+1. Ejecuta el contenedor:
+    sudo docker run -d -p 80:80 nagios-core
+
+2. Abre un navegador web y navega a `http://IPPUBLICA/nagios`.
+
+3. Inicia sesión con las siguientes credenciales:
+    - **Usuario**: nagiosadmin
+    - **Contraseña**: nagiosadmin
+
+## Estructura del Repositorio
+
+- `Dockerfile`: Archivo de configuración para construir la imagen Docker.
+- `start.sh`: Script para iniciar Apache y Nagios dentro del contenedor.
+- `README.md`: Instrucciones detalladas sobre cómo construir y ejecutar la imagen Docker.
+
+## Contribuciones
+
+Las contribuciones son bienvenidas. Por favor, crea un fork del repositorio y abre un pull request para revisar los cambios.
+
+## Licencia
+
+Este proyecto está licenciado bajo la Licencia MIT.
+
