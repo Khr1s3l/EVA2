@@ -1,4 +1,4 @@
-# Nagios Docker Image
+# Nagios en docker
 
 Este repositorio contiene el Dockerfile y scripts necesarios para construir una imagen Docker que ejecuta Nagios Core.
 
@@ -27,20 +27,19 @@ Antes de comenzar, asegúrate de tener Git y Docker instalados en tu máquina. A
 
 2. Instala los paquetes necesarios para usar el repositorio apt a través de HTTPS:
     ```bash
-    sudo apt install ca-certificates curl gnupg -y
+    sudo apt install apt-transport-https ca-certificates curl gnupg-agent software-properties-common
     ```
 
 3. Añade la clave GPG oficial de Docker:
     ```bash
-    sudo mkdir -m 0755 -p /etc/apt/keyrings
-    curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+    curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+
     ```
 
 4. Usa el siguiente comando para configurar el repositorio:
     ```bash
     echo \
-    "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian \
-    $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+    "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian \ $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
     ```
 
 5. Actualiza el índice de paquetes nuevamente:
@@ -50,9 +49,12 @@ Antes de comenzar, asegúrate de tener Git y Docker instalados en tu máquina. A
 
 6. Instala Docker:
     ```bash
-    sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
+    sudo apt install docker-ce docker-ce-cli containerd.io
     ```
-
+7. Prueba Docker(OPCIONAL):
+    ```bash
+    sudo docker run hello-world
+    ```
 ## Construcción de la Imagen
 
 1. Clona el repositorio:
